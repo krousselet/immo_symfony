@@ -25,6 +25,7 @@
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/list": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
-    "core-js": "^3.37.0"
+    "core-js": "^3.37.0",
+    "swiper": "^11.1.1"
   }
 }

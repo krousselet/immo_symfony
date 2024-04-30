@@ -1,0 +1,15 @@
+// ANIMATION IN ORDER FOR AN ELEMENT TO BE REVEALED
+
+@keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+// ANIMATION IN ORDER FOR AN ELEMENT TO APPEAR FROM THE BOTTOM OF THE PAGE
+
+@keyframes appear-from-bottom {
+  100% {
+    transform: translateY(0);
+  }
+}

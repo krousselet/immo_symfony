@@ -2,31 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Apartment;
-use DateTime;
+use App\Entity\ApartmentImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Apartment>
+ * @extends ServiceEntityRepository<ApartmentImage>
  */
-class ApartmentRepository extends ServiceEntityRepository
+class ApartmentImageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Apartment::class);
-    }
-
-    public function findAvailabilities(): array
-    {
-        return $this->createQueryBuilder('a')
-            ->select('a.availableStart', 'a.availableEnd')
-            ->getQuery()
-            ->getResult();
+        parent::__construct($registry, ApartmentImage::class);
     }
 
 //    /**
-//     * @return Apartment[] Returns an array of Apartment objects
+//     * @return ApartmentImage[] Returns an array of ApartmentImage objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -40,7 +31,7 @@ class ApartmentRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Apartment
+//    public function findOneBySomeField($value): ?ApartmentImage
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

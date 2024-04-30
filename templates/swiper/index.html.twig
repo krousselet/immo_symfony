@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SwiperController!{% endblock %}
+
+{% block body %}
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            ...
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+    <h1>Charger Image</h1>
+    {# Render the form for uploading images #}
+    {{ form_start(form) }}
+    <!-- Other fields -->
+    {{ form_row(form.pictures) }}
+    <button type="submit">Sauvegarder</button>
+    {{ form_end(form) }}
+{% endblock %}

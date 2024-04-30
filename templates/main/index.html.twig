@@ -2,4 +2,16 @@
 
 {% block title %}Hello MainController!{% endblock %}
 {% block body %}
+    <picture>
+        <!-- For screens wider than 911px, use vineyard_1024x1024.svg -->
+        <source media="(min-width: 912px)" srcset="{{ asset('./images/home/vineyard_1024x1024.svg') }}">
+        <!-- For screens 911px and narrower, use vineyard_450x450.svg -->
+        <img src="{{ asset('./images/home/vineyard_450x450.svg') }}" alt="image d'un immeuble au milieu des vignes" class="img-fluid">
+    </picture>
+{#    <div id="image-container">#}
+{#        <img src="{{ asset('./images/home/vineyard_450x450.svg') }}" alt="image d'un immeuble au milieu des vignes">#}
+{#    </div>#}
+    <div id="catch-container">
+        <p id="catch">L'essayer, c'est l'adopter</p>
+    </div>
 {% endblock %}

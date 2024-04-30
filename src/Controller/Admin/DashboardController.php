@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Apartment;
+use App\Entity\ApartmentImage;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -34,6 +36,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Voir mes Utilisateurs', 'fas fa-eye', User::class),
             MenuItem::linkToCrud('Ajouter un utilisateur', 'fas fa-plus', User::class)->setAction(crud::PAGE_NEW)
         ]);
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::subMenu('Actions sur les appartements', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Voir mes apartements', 'fas fa-eye', Apartment::class),
+            MenuItem::linkToCrud('Ajouter un appartement', 'fas fa-plus', Apartment::class)->setAction(crud::PAGE_NEW),
+        ]);
     }
 }
