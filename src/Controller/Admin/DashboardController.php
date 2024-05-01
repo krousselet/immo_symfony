@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Apartment;
-use App\Entity\ApartmentImage;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;

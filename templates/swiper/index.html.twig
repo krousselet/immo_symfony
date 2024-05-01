@@ -8,6 +8,9 @@
         <div class="swiper-wrapper">
             <!-- Slides -->
             <div class="swiper-slide">Slide 1</div>
+{#                {% for image in apartment.images %}#}
+{#                    <img src="{{ asset('/uploads/apartments/' ~ image.imageName) }}" alt="Image of {{ apartment.title }}" />#}
+{#                {% endfor %}#}
             <div class="swiper-slide">Slide 2</div>
             <div class="swiper-slide">Slide 3</div>
             ...
@@ -22,12 +25,15 @@
         <!-- If we need scrollbar -->
         <div class="swiper-scrollbar"></div>
     </div>
-
-    <h1>Charger Image</h1>
-    {# Render the form for uploading images #}
-    {{ form_start(form) }}
-    <!-- Other fields -->
-    {{ form_row(form.pictures) }}
-    <button type="submit">Sauvegarder</button>
-    {{ form_end(form) }}
+    {% for picture in pictures %}
+        {% for imageUrl in picture.imageFiles %}
+            {% if imageUrl is iterable %}
+                {% for url in imageUrl %}
+                    <img src="{{ asset(url) }}" alt="Image">
+                {% endfor %}
+            {% else %}
+                <img src="{{ asset(imageUrl) }}" alt="Image">
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 {% endblock %}

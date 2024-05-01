@@ -3,14 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Apartment;
+use App\Form\PicturesType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ApartmentCrudController extends AbstractCrudController
 {
@@ -21,22 +19,22 @@ class ApartmentCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $imageFields = CollectionField::new('pictureCollection', 'Images')
+            ->setEntryType(PicturesType::class)
+            ->setFormTypeOptions([
+                'by_reference' => false,  // Ensures that Symfony manages the collection correctly
+                'allow_add' => true,      // Allows users to add new images dynamically
+                'allow_delete' => true,   // Allows users to delete images
+            ])
+            ->onlyOnForms();
         return [
             TextField::new('title'),
             IntegerField::new('rooms'),
             IntegerField::new('surface'),
             DateTimeField::new('availableStart'),
             DateTimeField::new('availableEnd'),
-            // Correct configuration for file upload
-            Field::new('imageFile', 'Apartment Image')
-                ->setFormType(VichImageType::class)  // Important for upload functionality
-                ->onlyOnForms(),  // Make sure it's only on forms
+            $imageFields,
 
-            // Additional field to show the image if needed
-
-//            Field::new('imagePath', 'Image')
-//            .setBasePath('/uploads/images')
-//            .onlyOnDetail()
         ];
     }
 }

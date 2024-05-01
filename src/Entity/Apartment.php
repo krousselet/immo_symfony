@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use AllowDynamicProperties;
 use App\Repository\ApartmentRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ApartmentRepository::class)]
-#[Vich\Uploadable]
 class Apartment
 {
     #[ORM\Id]
@@ -29,59 +28,31 @@ class Apartment
     private ?int $surface = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $availableStart = null;
+    private ?DateTimeInterface $availableStart = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $availableEnd = null;
+    private ?DateTimeInterface $availableEnd = null;
 
-    #[ORM\Column(type: "json", nullable: true)]
-    private ?array $pictures = null;
+    /**
+     * @var Collection<int, Pictures>
+     */
+    #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'apartment', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $pictureCollection;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imagePath = null;
-
-    #[Vich\UploadableField(mapping: 'apartment_images', fileNameProperty: 'imagePath')]
-    private ?File $imageFile = null;
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-        if ($imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImagePath(): ?string
-    {
-        return $this->imagePath;
-    }
-
-    public function setImagePath(?string $imagePath): self
-    {
-        $this->imagePath = $imagePath;
-        return $this;
-    }
-
-    public function getPictures(): ?array
-    {
-        return $this->pictures;
-    }
-
-    public function setPictures(?array $pictures): void
-    {
-        $this->pictures = $pictures;
-    }
+    // ADDED FOR VICH ///////////////////
+//    #[ORM\ManyToOne(inversedBy: 'pictureCollection')]
+//    #[ORM\JoinColumn(nullable: false)]
+//    private ?Apartment $pictures = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    //END OF ADDING //////////////////////////////
+    public function __construct()
+    {
+        $this->pictureCollection = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -141,6 +112,33 @@ class Apartment
     {
         $this->availableEnd = $availableEnd;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pictures>
+     */
+    public function getPictureCollection(): Collection
+    {
+        return $this->pictureCollection;
+    }
+
+    public function addPictureCollection(Pictures $picture): self
+    {
+        if (!$this->pictureCollection->contains($picture)) {
+            $this->pictureCollection[] = $picture;
+            $picture->setApartment($this);
+        }
+        return $this;
+    }
+
+    public function removePictureCollection(Pictures $picture): self
+    {
+        if ($this->pictureCollection->removeElement($picture)) {
+            if ($picture->getApartment() === $this) {
+                $picture->setApartment(null);
+            }
+        }
         return $this;
     }
 
