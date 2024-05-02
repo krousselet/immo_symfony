@@ -20,6 +20,7 @@ class CalendarController extends AbstractController
     public function index(): Response
     {
         $availabilities = $this->availabilityService->getAvailableDates();
+//        dd($availabilities);
 
         return $this->render('calendar/index.html.twig', [
             'availabilities' => $availabilities,

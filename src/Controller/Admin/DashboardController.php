@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Apartment;
+use App\Entity\Category;
+use App\Entity\CategoryImage;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -24,7 +26,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Immo');
+            ->setTitle('Immolavigny');
     }
 
     public function configureMenuItems(): iterable
@@ -38,6 +40,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Actions sur les appartements', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Voir mes apartements', 'fas fa-eye', Apartment::class),
             MenuItem::linkToCrud('Ajouter un appartement', 'fas fa-plus', Apartment::class)->setAction(crud::PAGE_NEW),
+        ]);
+        yield MenuItem::subMenu('Actions sur les categories', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Voir mes categories', 'fas fa-eye', Category::class),
+            MenuItem::linkToCrud('Ajouter une categorie', 'fas fa-plus', Category::class)->setAction(crud::PAGE_NEW),
+        ]);
+        yield MenuItem::subMenu('Actions sur les images', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Voir mes images', 'fas fa-eye', CategoryImage::class),
+            MenuItem::linkToCrud('Ajouter une image', 'fas fa-image', CategoryImage::class)->setAction(crud::PAGE_NEW),
         ]);
     }
 }

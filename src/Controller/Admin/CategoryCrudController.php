@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Controller\Admin;
+
+use App\Entity\Category;
+use App\Form\CategoryImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+
+class CategoryCrudController extends AbstractCrudController
+{
+    public static function getEntityFqcn(): string
+    {
+        return Category::class;
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            ChoiceField::new('nom')
+                ->setChoices([
+                    'Salle de bain' => 'Salle de bain',
+                    'Salle a manger' => 'Salle a manger',
+                    'Sanitaire' => 'Sanitaire',
+                    'Chambre' => 'Chambre',
+                ]),
+            CollectionField::new('images')
+                ->setEntryType(CategoryImageType::class),
+        ];
+    }
+
+}

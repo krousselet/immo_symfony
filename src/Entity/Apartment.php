@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ApartmentRepository::class)]
 class Apartment
@@ -33,26 +32,14 @@ class Apartment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $availableEnd = null;
 
-    /**
-     * @var Collection<int, Pictures>
-     */
-    #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'apartment', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private Collection $pictureCollection;
-
-    // ADDED FOR VICH ///////////////////
-//    #[ORM\ManyToOne(inversedBy: 'pictureCollection')]
-//    #[ORM\JoinColumn(nullable: false)]
-//    private ?Apartment $pictures = null;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    //END OF ADDING //////////////////////////////
-    public function __construct()
+    public function setId(?int $id): void
     {
-        $this->pictureCollection = new ArrayCollection();
+        $this->id = $id;
     }
 
     public function getTitle(): ?string
@@ -60,11 +47,9 @@ class Apartment
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getRooms(): ?int
@@ -72,11 +57,9 @@ class Apartment
         return $this->rooms;
     }
 
-    public function setRooms(int $rooms): static
+    public function setRooms(?int $rooms): void
     {
         $this->rooms = $rooms;
-
-        return $this;
     }
 
     public function getSurface(): ?int
@@ -84,11 +67,9 @@ class Apartment
         return $this->surface;
     }
 
-    public function setSurface(int $surface): static
+    public function setSurface(?int $surface): void
     {
         $this->surface = $surface;
-
-        return $this;
     }
 
     public function getAvailableStart(): ?DateTimeInterface
@@ -96,11 +77,9 @@ class Apartment
         return $this->availableStart;
     }
 
-    public function setAvailableStart(DateTimeInterface $availableStart): static
+    public function setAvailableStart(?DateTimeInterface $availableStart): void
     {
         $this->availableStart = $availableStart;
-
-        return $this;
     }
 
     public function getAvailableEnd(): ?DateTimeInterface
@@ -108,38 +87,9 @@ class Apartment
         return $this->availableEnd;
     }
 
-    public function setAvailableEnd(DateTimeInterface $availableEnd): static
+    public function setAvailableEnd(?DateTimeInterface $availableEnd): void
     {
         $this->availableEnd = $availableEnd;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Pictures>
-     */
-    public function getPictureCollection(): Collection
-    {
-        return $this->pictureCollection;
-    }
-
-    public function addPictureCollection(Pictures $picture): self
-    {
-        if (!$this->pictureCollection->contains($picture)) {
-            $this->pictureCollection[] = $picture;
-            $picture->setApartment($this);
-        }
-        return $this;
-    }
-
-    public function removePictureCollection(Pictures $picture): self
-    {
-        if ($this->pictureCollection->removeElement($picture)) {
-            if ($picture->getApartment() === $this) {
-                $picture->setApartment(null);
-            }
-        }
-        return $this;
     }
 
 }
