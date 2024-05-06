@@ -1,26 +1,51 @@
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
-import 'swiper/css';
+// import 'swiper/swiper-bundle.min.css';
 import {Navigation, Pagination} from "swiper/modules";
-const swiper = new Swiper('.swiper', {
-    modules: [Navigation, Pagination],
-    // Optional parameters
-    direction: 'vertical',
-    loop: true,
 
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-    },
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize the main swiper for apartments
+    const mainSwiper = new Swiper('.main-swiper', {
+        loop: true,
+        effect: 'coverflow',
+        scrollable: true,
+        centeredSlides: true,
+        coverflow: {
+            rotate: 20,
+            stretch: 0,
+            depth: 200,
+            modifier: 1,
+            slideShadows: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.main-swiper > .swiper-pagination',
+            clickable: true,
+        },
+    });
 
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
+    // Initialize swipers for rooms within each apartment
+    document.querySelectorAll('.room-swiper').forEach(swiperElement => {
+        const roomSwiper = new Swiper(swiperElement, {
+            loop: true,
+            pagination: {
+                el: swiperElement.querySelector('.swiper-pagination'),
+                clickable: true,
+                scrollable: true,
+            },
+        });
 
-    // And if we need scrollbar
-    scrollbar: {
-        el: '.swiper-scrollbar',
-    },
+        // Initialize swipers for images within each room
+        const imageSwiperElement = swiperElement.querySelector('.room-images');
+        new Swiper(imageSwiperElement, {
+            loop: true,
+            pagination: {
+                el: imageSwiperElement.querySelector('.swiper-pagination'),
+                clickable: true,
+            },
+        });
+    });
 });

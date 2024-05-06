@@ -1,7 +1,9 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        categories:
-            uri_prefix: '/uploads/images/categories'
-            upload_destination: '%kernel.project_dir%/public/uploads/images'
+        pieces:
+            uri_prefix: '/uploads/photos/piece'
+            upload_destination: '%kernel.project_dir%/public/uploads/photos/piece'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true

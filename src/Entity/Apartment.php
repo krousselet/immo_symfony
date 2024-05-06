@@ -3,10 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ApartmentRepository;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApartmentRepository::class)]
@@ -18,19 +16,32 @@ class Apartment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private ?string $titre = null;
 
-    #[ORM\Column]
-    private ?int $rooms = null;
+    /**
+     * @var Collection<int, Contrat>
+     */
+    #[ORM\OneToMany(targetEntity: Contrat::class, mappedBy: 'appartement')]
+    private Collection $contrats;
 
-    #[ORM\Column]
-    private ?int $surface = null;
+    /**
+     * @var Collection<int, Piece>
+     */
+    #[ORM\OneToMany(targetEntity: Piece::class, mappedBy: 'appartement', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $pieces;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?DateTimeInterface $availableStart = null;
+    /**
+     * @var Collection<int, Disponibilite>
+     */
+    #[ORM\OneToMany(targetEntity: Disponibilite::class, mappedBy: 'appartement')]
+    private Collection $disponibilites;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?DateTimeInterface $availableEnd = null;
+    public function __construct()
+    {
+        $this->contrats = new ArrayCollection();
+        $this->pieces = new ArrayCollection();
+        $this->disponibilites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -42,54 +53,108 @@ class Apartment
         $this->id = $id;
     }
 
-    public function getTitle(): ?string
+    public function getTitre(): ?string
     {
-        return $this->title;
+        return $this->titre;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitre(?string $titre): void
     {
-        $this->title = $title;
+        $this->titre = $titre;
     }
 
-    public function getRooms(): ?int
+    /**
+     * @return Collection<int, Contrat>
+     */
+    public function getContrats(): Collection
     {
-        return $this->rooms;
+        return $this->contrats;
     }
 
-    public function setRooms(?int $rooms): void
+    public function addContrat(Contrat $contrat): static
     {
-        $this->rooms = $rooms;
+        if (!$this->contrats->contains($contrat)) {
+            $this->contrats->add($contrat);
+            $contrat->setAppartement($this);
+        }
+
+        return $this;
     }
 
-    public function getSurface(): ?int
+    public function removeContrat(Contrat $contrat): static
     {
-        return $this->surface;
+        if ($this->contrats->removeElement($contrat)) {
+            // set the owning side to null (unless already changed)
+            if ($contrat->getAppartement() === $this) {
+                $contrat->setAppartement(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function setSurface(?int $surface): void
+    /**
+     * @return Collection<int, Piece>
+     */
+    public function getPieces(): Collection
     {
-        $this->surface = $surface;
+        return $this->pieces;
     }
 
-    public function getAvailableStart(): ?DateTimeInterface
+    public function addPiece(Piece $piece): static
     {
-        return $this->availableStart;
+        if (!$this->pieces->contains($piece)) {
+            $this->pieces->add($piece);
+            $piece->setAppartement($this);
+        }
+
+        return $this;
     }
 
-    public function setAvailableStart(?DateTimeInterface $availableStart): void
+    public function removePiece(Piece $piece): static
     {
-        $this->availableStart = $availableStart;
+        if ($this->pieces->removeElement($piece)) {
+            // set the owning side to null (unless already changed)
+            if ($piece->getAppartement() === $this) {
+                $piece->setAppartement(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function getAvailableEnd(): ?DateTimeInterface
+    /**
+     * @return Collection<int, Disponibilite>
+     */
+    public function getDisponibilites(): Collection
     {
-        return $this->availableEnd;
+        return $this->disponibilites;
     }
 
-    public function setAvailableEnd(?DateTimeInterface $availableEnd): void
+    public function addDisponibilite(Disponibilite $disponibilite): static
     {
-        $this->availableEnd = $availableEnd;
+        if (!$this->disponibilites->contains($disponibilite)) {
+            $this->disponibilites->add($disponibilite);
+            $disponibilite->setAppartement($this);
+        }
+
+        return $this;
     }
 
+    public function removeDisponibilite(Disponibilite $disponibilite): static
+    {
+        if ($this->disponibilites->removeElement($disponibilite)) {
+            // set the owning side to null (unless already changed)
+            if ($disponibilite->getAppartement() === $this) {
+                $disponibilite->setAppartement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->titre; // Assuming 'title' is a field that can represent the Apartment object.
+    }
 }

@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Apartment;
 use App\Entity\Category;
 use App\Entity\CategoryImage;
+use App\Entity\Disponibilite;
+use App\Entity\Photo;
+use App\Entity\Piece;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -41,13 +44,17 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Voir mes apartements', 'fas fa-eye', Apartment::class),
             MenuItem::linkToCrud('Ajouter un appartement', 'fas fa-plus', Apartment::class)->setAction(crud::PAGE_NEW),
         ]);
-        yield MenuItem::subMenu('Actions sur les categories', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Voir mes categories', 'fas fa-eye', Category::class),
-            MenuItem::linkToCrud('Ajouter une categorie', 'fas fa-plus', Category::class)->setAction(crud::PAGE_NEW),
+        yield MenuItem::subMenu('Actions sur les pieces', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Voir mes pieces', 'fas fa-eye', Piece::class),
+            MenuItem::linkToCrud('Ajouter une piece', 'fas fa-plus', Piece::class)->setAction(crud::PAGE_NEW),
         ]);
-        yield MenuItem::subMenu('Actions sur les images', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Voir mes images', 'fas fa-eye', CategoryImage::class),
-            MenuItem::linkToCrud('Ajouter une image', 'fas fa-image', CategoryImage::class)->setAction(crud::PAGE_NEW),
+        yield MenuItem::subMenu('Actions sur les images', 'fas fa-bars fa-picture')->setSubItems([
+            MenuItem::linkToCrud('Voir mes images', 'fas fa-eye', Photo::class),
+            MenuItem::linkToCrud('Ajouter une image', 'fas fa-plus', Photo::class)->setAction(crud::PAGE_NEW),
+        ]);
+        yield MenuItem::subMenu('Actions sur les disponibilites', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Voir mes disponibilites', 'fas fa-eye', Disponibilite::class),
+            MenuItem::linkToCrud('Ajouter une disponibilite', 'fas fa-plus', Disponibilite::class)->setAction(crud::PAGE_NEW),
         ]);
     }
 }

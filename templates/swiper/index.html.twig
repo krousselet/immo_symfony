@@ -3,34 +3,37 @@
 {% block title %}Hello SwiperController!{% endblock %}
 
 {% block body %}
-    <div class="swiper">
-        <!-- Additional required wrapper -->
+    <div class="swiper main-swiper"> <!-- Main swiper for apartments, swipes horizontally -->
         <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide">Bien 1</div>
-            {% for picture in pictures %}
-                {% for imageUrl in picture.imageFiles %}
-                    {% if imageUrl is iterable %}
-                        {% for url in imageUrl %}
-                            <img src="{{ asset(url) }}" alt="Image">
-                        {% endfor %}
-                    {% else %}
-                        <img src="{{ asset(imageUrl) }}" alt="Image">
-                    {% endif %}
-                {% endfor %}
+            {% for apartment in apartments %}
+                <div class="swiper-slide">
+                    <h2>{{ apartment.titre }}</h2> <!-- Apartment title -->
+                    <div class="swiper room-swiper"> <!-- Nested swiper for rooms in each apartment -->
+                        <div class="swiper-wrapper">
+                            {% for room in apartment.pieces %}
+                                <div class="swiper-slide">
+                                    <h3>{{ room.nom }}</h3>
+                                    <p>{{ room.description }}</p>
+                                    <div class="room-images swiper-container">
+                                        <div class="swiper-wrapper">
+                                            {% for photo in room.photos %}
+                                                <div class="swiper-slide">
+                                                    <img src="{{ asset('uploads/photos/piece/' ~ photo.imageName) }}" alt="Photo of {{ room.nom }}">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="swiper-pagination"></div> <!-- Pagination for room images -->
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div> <!-- Pagination for rooms -->
+                    </div>
+                </div>
             {% endfor %}
-            <div class="swiper-slide">Slide 2</div>
-            <div class="swiper-slide">Slide 3</div>
-            ...
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div> <!-- Pagination for apartments -->
+        <div class="swiper-button-prev"></div> <!-- Navigation for apartments -->
         <div class="swiper-button-next"></div>
-
-        <!-- If we need scrollbar -->
-        <div class="swiper-scrollbar"></div>
     </div>
 {% endblock %}

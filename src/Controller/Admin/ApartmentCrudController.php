@@ -3,11 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Apartment;
-use App\Form\PicturesType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ApartmentCrudController extends AbstractCrudController
@@ -17,20 +15,14 @@ class ApartmentCrudController extends AbstractCrudController
         return Apartment::class;
     }
 
+    /*
     public function configureFields(string $pageName): iterable
     {
         return [
+            IdField::new('id'),
             TextField::new('title'),
-            IntegerField::new('rooms'),
-            IntegerField::new('surface'),
-            DateTimeField::new('availableStart'),
-            DateTimeField::new('availableEnd'),
-            AssociationField::new('categories', 'Categories')
-                ->setCrudController(CategoryCrudController::class) // Correctly link to CategoryCrudController
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ])
-                ->onlyOnForms(),
+            TextEditorField::new('description'),
         ];
     }
+    */
 }
