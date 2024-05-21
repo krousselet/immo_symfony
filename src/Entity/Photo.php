@@ -16,7 +16,7 @@ class Photo
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'photos')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'photos')]
     private ?Piece $piece = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]

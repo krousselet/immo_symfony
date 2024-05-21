@@ -14,10 +14,10 @@ class Disponibilite
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $Du = null;
+    private ?\DateTimeImmutable $du = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $Au = null;
+    private ?\DateTimeImmutable $au = null;
 
     #[ORM\ManyToOne(inversedBy: 'disponibilites')]
     private ?Apartment $appartement = null;
@@ -29,24 +29,24 @@ class Disponibilite
 
     public function getDu(): ?\DateTimeImmutable
     {
-        return $this->Du;
+        return $this->du;
     }
 
-    public function setDu(\DateTimeImmutable $Du): static
+    public function setDu(\DateTimeImmutable $du): static
     {
-        $this->Du = $Du;
+        $this->du = $du;
 
         return $this;
     }
 
     public function getAu(): ?\DateTimeImmutable
     {
-        return $this->Au;
+        return $this->au;
     }
 
-    public function setAu(\DateTimeImmutable $Au): static
+    public function setAu(\DateTimeImmutable $au): static
     {
-        $this->Au = $Au;
+        $this->au = $au;
 
         return $this;
     }

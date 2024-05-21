@@ -1,4 +1,5 @@
 import './bootstrap.js';
+import 'swiper/css/bundle';
 
 /*
  * Welcome to your app's main JavaScript file!
@@ -8,6 +9,5 @@ import './bootstrap.js';
  */
 import './styles/app.scss';
 import './swiper'
-const $ = require('jquery');
 require('bootstrap');
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

@@ -17,7 +17,7 @@ class Contrat
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'contrats')]
+    #[ORM\ManyToOne(targetEntity: Apartment::class, inversedBy: 'contrats')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Apartment $appartement = null;
 

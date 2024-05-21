@@ -1,51 +1,31 @@
 import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
-// import 'swiper/swiper-bundle.min.css';
-import {Navigation, Pagination} from "swiper/modules";
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize the main swiper for apartments
-    const mainSwiper = new Swiper('.main-swiper', {
+    let roomSwiper = new Swiper('.room-swiper', {
+        direction: 'horizontal',
         loop: true,
         effect: 'coverflow',
-        scrollable: true,
-        centeredSlides: true,
-        coverflow: {
-            rotate: 20,
-            stretch: 0,
-            depth: 200,
-            modifier: 1,
-            slideShadows: true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
         pagination: {
-            el: '.main-swiper > .swiper-pagination',
-            clickable: true,
+            el: '.room-swiper .swiper-pagination',
+            clickable: true
         },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        nested: false
     });
 
-    // Initialize swipers for rooms within each apartment
-    document.querySelectorAll('.room-swiper').forEach(swiperElement => {
-        const roomSwiper = new Swiper(swiperElement, {
+    // Initialize vertical swipers for each room's pictures
+    document.querySelectorAll('.picture-swiper').forEach(function(pictureSwiperEl) {
+        new Swiper(pictureSwiperEl, {
+            direction: 'vertical',
             loop: true,
+            effect: 'coverflow',
             pagination: {
-                el: swiperElement.querySelector('.swiper-pagination'),
-                clickable: true,
-                scrollable: true,
+                el: pictureSwiperEl.querySelector('.swiper-pagination'),
+                clickable: true
             },
-        });
-
-        // Initialize swipers for images within each room
-        const imageSwiperElement = swiperElement.querySelector('.room-images');
-        new Swiper(imageSwiperElement, {
-            loop: true,
-            pagination: {
-                el: imageSwiperElement.querySelector('.swiper-pagination'),
-                clickable: true,
-            },
+            nested: true
         });
     });
 });

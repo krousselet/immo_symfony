@@ -1,0 +1,16 @@
+{# templates/calendar/index-id.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Apartment Calendar</h1>
+    {% if apartmentId is defined %}
+        <div id="calendar" data-apartment-id="{{ apartmentId }}"></div>
+        <script>
+            console.log('apartmentId:', '{{ apartmentId }}');
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('calendar') }}
+{% endblock %}

@@ -17,10 +17,10 @@ class ApartmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Apartment::class);
     }
 
-    public function findAvailabilities(): array
+    public function findDisponibilites(): array
     {
         return $this->createQueryBuilder('a')
-            ->select('a.availableStart', 'a.availableEnd')
+            ->select('a.Du', 'a.Au')
             ->getQuery()
             ->getResult();
     }

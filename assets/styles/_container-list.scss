@@ -1,0 +1,35 @@
+.container-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+
+  #search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+      align-items: center;
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+
+
+      li {
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        list-style: none;
+        flex-direction: column;
+        margin: 0 auto;
+      }
+    }
+  }
+}

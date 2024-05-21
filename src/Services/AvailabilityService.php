@@ -3,27 +3,36 @@
 namespace App\Services;
 
 use App\Repository\ApartmentRepository;
+use Psr\Log\LoggerInterface;
 
 class AvailabilityService
 {
-    private $apartmentRepository;
+    private ApartmentRepository $apartmentRepository;
+    private LoggerInterface $logger;
 
-    public function __construct(ApartmentRepository $apartmentRepository)
+    public function __construct(ApartmentRepository $apartmentRepository, LoggerInterface $logger)
     {
         $this->apartmentRepository = $apartmentRepository;
+        $this->logger = $logger;
     }
 
-
-    public function getAvailableDates(): array
+    public function getAvailableDates(int $apartmentId): array
     {
+        $this->logger->info('Fetching available dates for apartment ID: ' . $apartmentId);
         $availableDates = [];
+        $apartment = $this->apartmentRepository->find($apartmentId);
 
-        $availabilities = $this->apartmentRepository->findAvailabilities();
+        if (!$apartment) {
+            $this->logger->error('Apartment not found with ID: ' . $apartmentId);
+            throw new \Exception("Apartment not found");
+        }
 
-        foreach ($availabilities as $availability) {
+        $disponibilites = $apartment->getDisponibilites();
+
+        foreach ($disponibilites as $disponibilite) {
             $availableDates[] = [
-                'start' => $availability['availableStart']->format('Y-m-d'),
-                'end' => $availability['availableEnd']->format('Y-m-d'),
+                'start' => $disponibilite->getDu()->format('Y-m-d\TH:i:sP'),
+                'end' => $disponibilite->getAu()->format('Y-m-d\TH:i:sP'),
             ];
         }
 

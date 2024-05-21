@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apartment Details{% endblock %}
+
+{% block body %}
+    {% if apartment %}
+        <h3>{{ apartment.titre }}</h3>
+        <div class="container">
+            <!-- Swiper for navigating between rooms -->
+            <div class="swiper room-swiper">
+                <div class="swiper-wrapper">
+                    {% for room in apartment.pieces %}
+                        <div class="swiper-slide">
+                            <h4>{{ room.nom }}</h4>
+                            <p>{{ room.description|raw }}</p>
+                            <!-- Vertical swiper for pictures in the current room -->
+                            <div class="room-images swiper picture-swiper">
+                                <div class="swiper-wrapper">
+                                    {% for photo in room.photos %}
+                                        <div class="swiper-slide">
+                                            <img src="{{ asset('uploads/photos/piece/' ~ photo.imageName) }}" alt="Photo of {{ room.nom }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    {% else %}
+        <p>Apartment not found.</p>
+    {% endif %}
+{% endblock %}
