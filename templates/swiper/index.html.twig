@@ -8,7 +8,7 @@
                     <p>Que recherchez-vous ?</p>
                 {% for apartment in apartments %}
                     <ul>
-                        <li><a href="{{ path('app_swiper_id', {'uniqueId': apartment.uniqueId}) }}">{{ apartment.titre }}</a></li>
+                        <li><a target="_blank" href="{{ path('app_swiper_id', {'uniqueId': apartment.uniqueId}) }}">{{ apartment.titre }}</a></li>
                     </ul>
                 {% endfor %}
                 </div>

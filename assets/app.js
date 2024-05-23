@@ -1,5 +1,6 @@
-import './bootstrap.js';
+// import './bootstrap.js';
 import 'swiper/css/bundle';
+// import '../node_modules/bootstrap/dist/js/bootstrap'
 
 /*
  * Welcome to your app's main JavaScript file!
@@ -9,5 +10,4 @@ import 'swiper/css/bundle';
  */
 import './styles/app.scss';
 import './swiper'
-require('bootstrap');
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

@@ -3,9 +3,10 @@ html {
 }
 
 body {
-  backdrop-filter: blur(10px);
   background: #262626;
   color: white;
+  font-family: "Ephesis", cursive;
+  min-height: 100vh !important;
 }
 
 a {

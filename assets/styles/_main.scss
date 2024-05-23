@@ -3,4 +3,10 @@ main {
   flex-direction: column;
   justify-items: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  @media (min-width: 991px) and (max-width: 3080px) {
+    width: 1024px;
+  }
 }

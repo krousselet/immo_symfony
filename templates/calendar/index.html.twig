@@ -2,12 +2,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Select an Apartment</h1>
-    <ul>
-        {% for apartment in apartments %}
-            <li>
-                <a href="{{ path('app_calendar_id', {'apartmentId': apartment.id}) }}">{{ apartment.titre }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+        <div class="module">
+                <h1>Selectionnez un appartement:</h1>
+                <ul>
+                    {% for apartment in apartments %}
+                        <li>
+                            <a target="_blank" href="{{ path('app_calendar_id', {'apartmentId': apartment.id}) }}">{{ apartment.titre }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+        </div>
 {% endblock %}

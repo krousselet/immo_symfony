@@ -34,7 +34,6 @@ class SwiperController extends AbstractController
         );
         $query->setParameter('uniqueId', $uniqueId);
         $apartment = $query->getSingleResult();
-        dd($apartment);
 
         // Check if the apartment exists
         if (!$apartment) {

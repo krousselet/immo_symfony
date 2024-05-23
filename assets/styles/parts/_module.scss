@@ -1,0 +1,30 @@
+.module {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  @media (min-width: 320px) and (max-width: 991px) {
+    margin: 33vh auto;
+  }
+  @media (min-width: 991px) and (max-width: 3080px) {
+    margin: 25vh auto;
+  }
+
+  h1 {
+    @media (min-width: 320px) and (max-width: 991px) {
+      font-size: 36px;
+    }
+    @media (min-width: 991px) and (max-width: 3080px) {
+      font-size: 72px;
+    }
+  }
+
+  ul {
+    @media (min-width: 320px) and (max-width: 991px) {
+      font-size: 36px;
+    }
+    @media (min-width: 991px) and (max-width: 3080px) {
+      font-size: 72px;
+    }
+  }
+}

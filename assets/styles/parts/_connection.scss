@@ -1,0 +1,13 @@
+#connection-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  @media (min-width: 320px) and (max-width: 991px) {
+    margin: 25vh auto;
+  }
+  @media (min-width: 991px) and (max-width: 3080px) {
+    margin: 25vh auto;
+  }
+}

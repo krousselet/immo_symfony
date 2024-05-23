@@ -18,16 +18,16 @@ class Apartment
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\OneToMany(targetEntity: Disponibilite::class, mappedBy: 'appartement')]
+    #[ORM\OneToMany(targetEntity: Disponibilite::class, mappedBy: 'appartement', cascade: ['remove'])]
     private Collection $disponibilites;
 
-    #[ORM\OneToMany(targetEntity: Piece::class, mappedBy: 'appartement')]
+    #[ORM\OneToMany(targetEntity: Piece::class, mappedBy: 'appartement', cascade: ['remove'])]
     private Collection $pieces;
 
     #[ORM\Column]
     private ?int $uniqueId = null;
 
-    #[ORM\OneToMany(targetEntity: Contrat::class, mappedBy: 'appartement')]
+    #[ORM\OneToMany(targetEntity: Contrat::class, mappedBy: 'appartement', cascade: ['remove'])]
     private Collection $contrats;
 
     public function __construct()

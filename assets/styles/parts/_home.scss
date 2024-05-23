@@ -1,0 +1,46 @@
+picture {
+  overflow: hidden;
+  opacity: 0;
+  animation: appear .3s .5s forwards ease-in-out;
+  @media (min-width: 320px) and (max-width: 991px) {
+    height: 50%;
+  }
+  height: 50%;
+  width: 100%;
+  @media (min-width: 320px) and (max-width: 991px) {
+    margin-top: 5vh;
+  }
+  @media (min-width: 991px) and (max-width: 3080px) {
+    margin-top: 5vh;
+  }
+}
+
+#catch-container {
+  @media (min-width: 320px) and (max-width: 991px) {
+    height: 50%;
+  }
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  overflow: hidden;
+  @media (min-width: 320px) and (max-width: 991px) {
+    margin-bottom: 5vh;
+  }
+  @media (min-width: 991px) and (max-width: 3080px) {
+    margin-bottom: 5vh;
+  }
+
+  #catch {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    font-size: 34px;
+    height: 100%;
+    margin-bottom: 0;
+    transform: translateY(150px);
+    animation: appear-from-bottom .5s .5s forwards ease-in-out;
+  }
+}
